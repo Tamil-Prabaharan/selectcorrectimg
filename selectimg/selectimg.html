@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		body{
+			width: 100%;
+			height: auto;
+			background-color: white;
+		}
+		img{
+			width: 100px;
+			height: 100px;
+			border: 3px solid transparent;
+            cursor: pointer;
+		}
+		#tick{
+			display: none;
+		}
+		h1{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+		}
+		#photo{
+			margin-left: 40%;
+		}
+		input{
+			width: 20px;
+			height: 20px;
+		}
+		#final{
+			display: flex;
+			justify-content: center;
+		}
+		#b1{
+			width: 150px;
+			height: auto;
+			font-size: 20px;
+		}
+		#checkbox{
+			background-color: blue;
+			}	
+		.selected {
+            border-color: blue;
+        }	
+	</style>
+
+</head>
+<body>
+	<h1>select following traffic sinals only</h1>
+	<img src=".\tick.jpg" id="tick">
+	<div id="photo">
+	<div id="photo1">
+		<img src=".\Download1.jpg" id="img1" onclick="selectImage('img1')">
+		<img src=".\Download 2.jpg" id="img2" onclick="selectImage('img2')">
+		<img src=".\Download 3.jpg" id="img3" onclick="selectImage('img3')">
+	</div>
+	<div id="photo2">
+		<img src=".\paper.png" id="img4" onclick="selectImage('img4')">
+		<img src=".\Download 4.jpg" id="img5" onclick="selectImage('img5')">
+		<img src=".\Download 5.jpg" id="img6" onclick="selectImage('img6')">
+	</div>
+	<div id="photo3">
+		<img src=".\scissor.png" id="img7" onclick="selectImage('img7')">
+		<img src=".\Download 4.jpg" id="img8" onclick="selectImage('img8')">
+		<img src=".\stone.png" id="img9" onclick="selectImage('img9')">
+	</div>
+		<input type="checkbox" id="checkbox"><p id="result">select check box</p>
+	    <button onclick="checkAnswer()">Submit</button>		
+	</div>
+</body>
+<script type="text/javascript">
+	 let selectedIds = [];
+  const correctIds = ["img1", "img2","img3", "img5","img6", "img8"];
+  function selectImage(id) {
+    const img = document.getElementById(id);
+    if (selectedIds.includes(id)) {
+      selectedIds = selectedIds.filter(item => item !== id);
+      img.classList.remove("selected");
+    } else {
+      // Limit to max 2 selections
+      if (selectedIds.length >= 6) {
+        alert("You can only select 6 images.");
+        return;
+      }
+      selectedIds.push(id);
+      img.classList.add("selected");
+    }
+  }
+    function checkAnswer() {
+    var result = document.getElementById("result");
+    if (selectedIds.length !== 6) {
+      result.textContent = "Please select exactly 6 images.";
+      result.style.color = "orange";
+      return;
+    }
+    var isCorrect =correctIds.every(correctId => selectedIds.includes(correctId)) && selectedIds.every(selectedId => correctIds.includes(selectedId));
+    if (isCorrect) {
+      result.textContent = "✅ i am not a roboat.";
+      result.style.color = "green";
+    } else {
+      result.textContent = "❌ ne kandepa robot than po.";
+      result.style.color = "red";
+    }
+  }
+</script>
+</html>
